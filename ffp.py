@@ -226,6 +226,22 @@ def check_for_fasta(species, base_path):
         return ''
 
 
+def merge(a, b, path=None):
+    "merges b into a"
+    if path is None: path = []
+    for key in b:
+        if key in a:
+            if isinstance(a[key], dict) and isinstance(b[key], dict):
+                merge(a[key], b[key], path + [str(key)])
+            elif a[key] == b[key]:
+                pass # same leaf value
+            else:
+                raise Exception('Conflict at %s' % '.'.join(path + [str(key)]))
+        else:
+            a[key] = b[key]
+    return a
+
+
 if "__main__" == __name__:
     parser = OptionParser()
     parser.add_option("-f", "--folder", dest="folder_fp",
@@ -282,10 +298,18 @@ if "__main__" == __name__:
             print("\t--- %s seconds ---" % (time.time() - loop_start_time))
         print("--- %s minutes ---" % ((time.time() - start_time) / 60))
         # Reconstruct the tree
+        # Mirror dictionary
+        mirror_result_dict = {}
+        for k1, v1 in result_dict.items():  # the basic way
+            for k2, v2 in v1.items():
+                try:
+                    mirror_result_dict[k2][k1] = v2
+                except KeyError:
+                    mirror_result_dict[k2] = {k1: v2}
+        result_dict = merge(result_dict, mirror_result_dict)
+        print(result_dict)
         tree_start_time = time.time()
         print('Reconstructing tree...')
         tree = tree_recon.create_tree(result_dict, folders, 4, 0.3)
         print("--- %s seconds ---" % (time.time() - tree_start_time))
     print("--- %s minutes ---" % ((time.time() - start_time)/60))
-
-
