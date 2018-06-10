@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be6b7cd6-be4a-4a27-afee-85dadf7da03f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ffp.py" beforeDir="false" afterPath="$PROJECT_DIR$/ffp.py" afterDir="false" />
     </list>
@@ -18,8 +17,8 @@
       <file leaf-file-name="ffp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ffp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="308" column="60" lean-forward="true" selection-start-line="308" selection-start-column="60" selection-end-line="308" selection-end-column="60" />
+            <state relative-caret-position="211">
+              <caret line="211" column="39" selection-start-line="211" selection-start-column="39" selection-end-line="211" selection-end-column="39" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#204#849#0" />
@@ -38,20 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.conda/envs/untitled/lib/python3.6/codecs.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="308" selection-start-line="308" selection-end-line="308" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="tree_recon.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tree_recon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="325" selection-start-line="325" selection-end-line="325" />
+            <state relative-caret-position="226">
+              <caret line="328" lean-forward="true" selection-start-line="328" selection-end-line="328" />
               <folding>
                 <element signature="e#200#1377#0" />
                 <element signature="e#2608#2830#0" />
@@ -144,7 +134,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ffp.py" />
-      <option name="PARAMETERS" value="-f $PROJECT_DIR$/Data/birds-0.1G/test_reads/ -l 10 -d js -o $PROJECT_DIR$/Data/birds-0.1G/test_out.txt -r False" />
+      <option name="PARAMETERS" value="-f $PROJECT_DIR$/Data/birds-0.1G/reads/ -l 10 -d js -o $PROJECT_DIR$/Data/birds-0.1G/out.txt -r False" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -221,6 +211,14 @@
       <option name="presentableId" value="Default" />
       <updated>1527135248557</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added other half of distance matrix to dictionary. I.e. mirroring over the diagonal.">
+      <created>1528601064976</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1528601064976</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -248,6 +246,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added other half of distance matrix to dictionary. I.e. mirroring over the diagonal." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added other half of distance matrix to dictionary. I.e. mirroring over the diagonal." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -328,8 +330,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tree_recon.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="325" selection-start-line="325" selection-end-line="325" />
+        <state relative-caret-position="226">
+          <caret line="328" lean-forward="true" selection-start-line="328" selection-end-line="328" />
           <folding>
             <element signature="e#200#1377#0" />
             <element signature="e#2608#2830#0" />
@@ -345,8 +347,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ffp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="308" column="60" lean-forward="true" selection-start-line="308" selection-start-column="60" selection-end-line="308" selection-end-column="60" />
+        <state relative-caret-position="211">
+          <caret line="211" column="39" selection-start-line="211" selection-start-column="39" selection-end-line="211" selection-end-column="39" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#204#849#0" />
