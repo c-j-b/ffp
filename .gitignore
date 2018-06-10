@@ -1,0 +1,9 @@
+**/Data
+**/temp
+**/Temp
+**/Export
+*.fa
+*.fq
+*.jf
+*.msh
+*.hist
