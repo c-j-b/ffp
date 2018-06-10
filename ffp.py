@@ -155,6 +155,7 @@ def compute_ffp_dist(sequences_dct_1, sequences_dct_2, dist_option, verbose):
     :param dist_option: Method used to calculate the distance between the FFPs
         options - js: Jenson-Shannon Divergence
                 - e: Euclidean Distance
+    :param verbose: prints tons of stuff
     :return: the distance between the two FFPs
     """
     if verbose:
@@ -227,8 +228,9 @@ def check_for_fasta(species, base_path):
 
 
 def merge(a, b, path=None):
-    "merges b into a"
-    if path is None: path = []
+    """merges b into a"""
+    if path is None:
+        path = []
     for key in b:
         if key in a:
             if isinstance(a[key], dict) and isinstance(b[key], dict):

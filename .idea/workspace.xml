@@ -17,21 +17,18 @@
       <file leaf-file-name="ffp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ffp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="211" column="39" selection-start-line="211" selection-start-column="39" selection-end-line="211" selection-end-column="39" />
+            <state relative-caret-position="189">
+              <caret line="232" column="17" lean-forward="true" selection-start-line="232" selection-start-column="17" selection-end-line="232" selection-end-column="17" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#204#849#0" />
                 <element signature="e#892#1120#0" />
                 <element signature="e#1160#1538#0" />
                 <element signature="e#1415#1652#0" />
                 <element signature="e#1144#1401#0" />
                 <element signature="e#2106#5412#0" />
-                <element signature="e#2032#3418#0" />
                 <element signature="e#6817#7121#0" />
                 <element signature="e#7164#7468#0" />
                 <element signature="e#7804#8296#0" />
-                <element signature="e#8341#8782#0" />
               </folding>
             </state>
           </provider>
@@ -41,7 +38,7 @@
         <entry file="file://$PROJECT_DIR$/tree_recon.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="226">
-              <caret line="328" lean-forward="true" selection-start-line="328" selection-end-line="328" />
+              <caret line="328" selection-start-line="328" selection-end-line="328" />
               <folding>
                 <element signature="e#200#1377#0" />
                 <element signature="e#2608#2830#0" />
@@ -218,7 +215,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528601064976</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added newick and ascii tree write to output file.">
+      <created>1528601630815</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1528601630815</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -231,11 +235,11 @@
       <window_info anchor="bottom" id="Find" order="1" weight="0.32939634" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.33858266" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31102362" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.44750655" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.44750655" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -249,14 +253,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added other half of distance matrix to dictionary. I.e. mirroring over the diagonal." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added other half of distance matrix to dictionary. I.e. mirroring over the diagonal." />
+    <MESSAGE value="Added newick and ascii tree write to output file." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added newick and ascii tree write to output file." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ffp.py</url>
-          <line>313</line>
+          <line>315</line>
           <option name="timeStamp" value="96" />
         </line-breakpoint>
       </breakpoints>
@@ -277,17 +282,14 @@
           <caret line="14" column="46" lean-forward="true" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#204#849#0" />
             <element signature="e#892#1120#0" />
             <element signature="e#1160#1538#0" />
             <element signature="e#1415#1652#0" />
             <element signature="e#1144#1401#0" />
             <element signature="e#2106#5412#0" />
-            <element signature="e#2032#3418#0" />
             <element signature="e#6817#7121#0" />
             <element signature="e#7164#7468#0" />
             <element signature="e#7804#8296#0" />
-            <element signature="e#8341#8782#0" />
           </folding>
         </state>
       </provider>
@@ -331,7 +333,7 @@
     <entry file="file://$PROJECT_DIR$/tree_recon.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
-          <caret line="328" lean-forward="true" selection-start-line="328" selection-end-line="328" />
+          <caret line="328" selection-start-line="328" selection-end-line="328" />
           <folding>
             <element signature="e#200#1377#0" />
             <element signature="e#2608#2830#0" />
@@ -347,21 +349,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ffp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="211" column="39" selection-start-line="211" selection-start-column="39" selection-end-line="211" selection-end-column="39" />
+        <state relative-caret-position="189">
+          <caret line="232" column="17" lean-forward="true" selection-start-line="232" selection-start-column="17" selection-end-line="232" selection-end-column="17" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#204#849#0" />
             <element signature="e#892#1120#0" />
             <element signature="e#1160#1538#0" />
             <element signature="e#1415#1652#0" />
             <element signature="e#1144#1401#0" />
             <element signature="e#2106#5412#0" />
-            <element signature="e#2032#3418#0" />
             <element signature="e#6817#7121#0" />
             <element signature="e#7164#7468#0" />
             <element signature="e#7804#8296#0" />
-            <element signature="e#8341#8782#0" />
           </folding>
         </state>
       </provider>
