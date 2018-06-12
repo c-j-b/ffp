@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="be6b7cd6-be4a-4a27-afee-85dadf7da03f" name="Default" comment="">
+    <list default="true" id="be6b7cd6-be4a-4a27-afee-85dadf7da03f" name="Default" comment="Removed panda object, replaced with array as dictionary value. Moved normalization into initial read in of values. Code runs much faster (&gt;85%) now.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ffp.py" beforeDir="false" afterPath="$PROJECT_DIR$/ffp.py" afterDir="false" />
     </list>
@@ -17,18 +17,20 @@
       <file leaf-file-name="ffp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ffp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="232" column="17" lean-forward="true" selection-start-line="232" selection-start-column="17" selection-end-line="232" selection-end-column="17" />
+            <state relative-caret-position="360">
+              <caret line="187" column="37" lean-forward="true" selection-start-line="187" selection-start-column="37" selection-end-line="187" selection-end-column="37" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#892#1120#0" />
+                <element signature="e#204#849#0" />
+                <element signature="e#1360#2917#0" />
                 <element signature="e#1160#1538#0" />
                 <element signature="e#1415#1652#0" />
                 <element signature="e#1144#1401#0" />
-                <element signature="e#2106#5412#0" />
+                <element signature="e#2032#3418#0" />
                 <element signature="e#6817#7121#0" />
                 <element signature="e#7164#7468#0" />
                 <element signature="e#7804#8296#0" />
+                <element signature="e#8381#8826#0" />
               </folding>
             </state>
           </provider>
@@ -185,7 +187,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ffp.py" />
-      <option name="PARAMETERS" value="-a $PROJECT_DIR$/Data/birds-0.1G/reads/Acanthisitta_chloris/Acanthisitta_chloris.fq -b $PROJECT_DIR$/Data/birds-0.1G/reads/Eurypyga_helias/Eurypyga_helias.fq -l 10 -r true -d js -o $PROJECT_DIR$/Data/birds-0.1G/temp_out.txt" />
+      <option name="PARAMETERS" value="-a $PROJECT_DIR$/Data/birds-0.1G/reads/Acanthisitta_chloris/Acanthisitta_chloris.fq -b $PROJECT_DIR$/Data/birds-0.1G/reads/Eurypyga_helias/Eurypyga_helias.fq -l 10 -r False -d js -o $PROJECT_DIR$/Data/birds-0.1G/temp_out.txt -v True" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -222,7 +224,21 @@
       <option name="project" value="LOCAL" />
       <updated>1528601630815</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Formatting and more comments">
+      <created>1528649853256</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1528649853256</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Removed panda object, replaced with array as dictionary value. Moved normalization into initial read in of values. Code runs much faster (&gt;85%) now.">
+      <created>1528769493034</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1528769493035</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -231,11 +247,11 @@
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.110416666" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.50069445" side_tool="true" visible="true" weight="0.2952756" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32939634" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31102362" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49930555" visible="true" weight="0.2952756" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -254,17 +270,12 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added other half of distance matrix to dictionary. I.e. mirroring over the diagonal." />
     <MESSAGE value="Added newick and ascii tree write to output file." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added newick and ascii tree write to output file." />
+    <MESSAGE value="Formatting and more comments" />
+    <MESSAGE value="Removed panda object, replaced with array as dictionary value. Moved normalization into initial read in of values. Code runs much faster (&gt;85%) now." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed panda object, replaced with array as dictionary value. Moved normalization into initial read in of values. Code runs much faster (&gt;85%) now." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ffp.py</url>
-          <line>315</line>
-          <option name="timeStamp" value="96" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -272,7 +283,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="97" />
+      <option name="time" value="112" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -282,14 +293,16 @@
           <caret line="14" column="46" lean-forward="true" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#892#1120#0" />
+            <element signature="e#204#849#0" />
+            <element signature="e#1360#2917#0" />
             <element signature="e#1160#1538#0" />
             <element signature="e#1415#1652#0" />
             <element signature="e#1144#1401#0" />
-            <element signature="e#2106#5412#0" />
+            <element signature="e#2032#3418#0" />
             <element signature="e#6817#7121#0" />
             <element signature="e#7164#7468#0" />
             <element signature="e#7804#8296#0" />
+            <element signature="e#8381#8826#0" />
           </folding>
         </state>
       </provider>
@@ -349,18 +362,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ffp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="232" column="17" lean-forward="true" selection-start-line="232" selection-start-column="17" selection-end-line="232" selection-end-column="17" />
+        <state relative-caret-position="360">
+          <caret line="187" column="37" lean-forward="true" selection-start-line="187" selection-start-column="37" selection-end-line="187" selection-end-column="37" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#892#1120#0" />
+            <element signature="e#204#849#0" />
+            <element signature="e#1360#2917#0" />
             <element signature="e#1160#1538#0" />
             <element signature="e#1415#1652#0" />
             <element signature="e#1144#1401#0" />
-            <element signature="e#2106#5412#0" />
+            <element signature="e#2032#3418#0" />
             <element signature="e#6817#7121#0" />
             <element signature="e#7164#7468#0" />
             <element signature="e#7804#8296#0" />
+            <element signature="e#8381#8826#0" />
           </folding>
         </state>
       </provider>

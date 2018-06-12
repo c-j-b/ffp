@@ -174,19 +174,23 @@ def compute_ffp_with_options(seq_1_fp, seq_2_fp, rerun_option, output_fp, distan
     else:
         # use jenson-shannon
         _distance_option = "jenson-shannon"
+    if options.output_fp is not None:
+        # Write to file
+        with open(output_fp, 'a+') as f:
+            f.write('Distance method: ' + str(_distance_option) + '\n')
     # compute FFP_distance
     ffp_dist = compute_ffp_dist(seq_dct, _distance_option, verbose)
     # print distance
     print('\t' + str(os.path.splitext(os.path.basename(seq_1_file))[0]) + ' + '
           + str(os.path.splitext(os.path.basename(seq_2_file))[0]) + '\n'
-          + '\t\t' + _distance_option + ' dist: ' + str(ffp_dist))
+          + '\t' + _distance_option + ' dist: ' + str(ffp_dist))
     # write to output file when given path
     if options.output_fp is not None:
         # Write to file
         with open(output_fp, 'a+') as f:
             f.write(str(os.path.splitext(os.path.basename(seq_1_file))[0]) + ' + '
                     + str(os.path.splitext(os.path.basename(seq_2_file))[0]) + '\n' + '\t'
-                    + _distance_option + ' dist: ' + str(ffp_dist) + '\n')
+                    + str(ffp_dist) + '\n')
     return ffp_dist
 
 
@@ -331,9 +335,8 @@ if "__main__" == __name__:
                 result_dict[species_1] = {species_2: dist}
             n += 1
             print("\t--- %s seconds ---" % (time.time() - loop_start_time))
-        print("--- %s minutes ---" % ((time.time() - start_time) / 60))
         # Reconstruct the tree
-        # Mirror dictionary
+        # mirror dictionary for tree reconstruction
         mirror_result_dict = {}
         for k1, v1 in result_dict.items():  # the basic way
             for k2, v2 in v1.items():
