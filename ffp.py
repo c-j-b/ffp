@@ -5,19 +5,22 @@ from scipy import stats, spatial, misc
 import subprocess
 import os
 import time
-import pandas as pd
 import numpy as np
 from itertools import combinations
 import tree_recon
 
 
-def read_fasta(fasta_fp):
+def read_fasta(fasta_fp, seq_num, verbose):
     """
+    Used to read in first dictionary and normalize
     :param fasta_fp: fasta input file
-    :return: The dictionary of the input alignments, where keys are the kmer sequences and values are the kmer counts
+    :param seq_num: the number of sequences being compared
+    :param verbose: prints  stuff
+    :return: The dictionary of the input alignments, where key is the kmer sequences and the value is an array of the freq counts
     """
     fasta_lines = open(fasta_fp).readlines()
     sequences_dct = dict()
+    total = 0
     if re.search(">", fasta_lines[0]) is None:
         print("This is not a valid fasta format")
         sys.exit(1)
@@ -25,21 +28,62 @@ def read_fasta(fasta_fp):
         if line.strip():
             if re.search(">", line):
                 cnt = line.replace(">", "").replace("\n", "").strip()
+                total += int(cnt)
             else:
                 seq = line.strip("\n")
-                sequences_dct[seq] = int(cnt)
+                cnt_array = [0] * seq_num  # create empty array
+                cnt_array[0] = int(cnt)
+                sequences_dct[seq] = cnt_array
+    # normalize frequency counts
+    if verbose:
+        print('Normalizing sequence 0')
+    for key, value in sequences_dct.items():
+        tmp_array = sequences_dct[key]
+        tmp_array[0] = value[0]/total
+        sequences_dct[key] = tmp_array
     return sequences_dct
 
 
-def normalize_counts(d):
+def add_fasta(seq_dict, fasta_fp, seq_num, this_seq_num, verbose):
     """
-    :param d: dictionary with keys as sequences and counts as values
-    :return: dictionary with normalized counts
+    Used to add second sequences distance value to main dictionary, also normalizes
+    :param seq_dict: main dictionary of kmers and frequency counts
+    :param this_seq_num: index of this sequence
+    :param fasta_fp: second fasta input file
+    :param seq_num: total number of sequences being used
+    :param verbose: prints stuff
+    :return: The dictionary of the input alignments, where key is the kmer sequences and the value is an array of the freq counts
     """
-    total = sum(d.values())
-    for key, value in d.items():
-        d[key] = value / total
-    return d
+    fasta_lines = open(fasta_fp).readlines()
+    total = 0
+    if re.search(">", fasta_lines[0]) is None:
+        print("This is not a valid fasta format")
+        sys.exit(1)
+    for line in fasta_lines:
+        if line.strip():
+            if re.search(">", line):
+                cnt = line.replace(">", "").replace("\n", "").strip()
+                total += int(cnt)
+            else:
+                seq = line.strip("\n")
+                if seq in seq_dict:
+                    # add to array element existing kmer entry
+                    tmp_array = seq_dict[seq]
+                    tmp_array[this_seq_num] = int(cnt)
+                    seq_dict[seq] = tmp_array
+                else:
+                    # add new kmer
+                    cnt_array = [0] * seq_num  # create empty array of max length
+                    cnt_array[this_seq_num] = int(cnt)
+                    seq_dict[seq] = cnt_array
+    # normalize frequency counts
+    if verbose:
+        print('Normalizing sequence ' + str(this_seq_num))
+    for key, value in seq_dict.items():
+        tmp_array = seq_dict[key]
+        tmp_array[this_seq_num] = value[this_seq_num]/total
+        seq_dict[key] = tmp_array
+    return seq_dict
 
 
 def euclidean(p, q):
@@ -114,10 +158,10 @@ def compute_ffp_with_options(seq_1_fp, seq_2_fp, rerun_option, output_fp, distan
     # read dumps into dict
     if verbose:
         print('Reading jellyfish FASTAs into dictionaries...')
-    seq_dct_1 = read_fasta(str(seq_1_base + '/mer_counts_dump.fa'))
+    seq_dct = read_fasta(str(seq_1_base + '/mer_counts_dump.fa'), 2, verbose)
     if verbose:
         print('Done reading into dictionary 1.')
-    seq_dct_2 = read_fasta(str(seq_2_base + '/mer_counts_dump.fa'))
+    seq_dct = add_fasta(seq_dct, str(seq_2_base + '/mer_counts_dump.fa'), 2, 1, verbose)
     if verbose:
         print('Done reading into dictionary 2.')
     # compute distance matrix
@@ -131,7 +175,7 @@ def compute_ffp_with_options(seq_1_fp, seq_2_fp, rerun_option, output_fp, distan
         # use jenson-shannon
         _distance_option = "jenson-shannon"
     # compute FFP_distance
-    ffp_dist = compute_ffp_dist(seq_dct_1, seq_dct_2, _distance_option, verbose)
+    ffp_dist = compute_ffp_dist(seq_dct, _distance_option, verbose)
     # print distance
     print('\t' + str(os.path.splitext(os.path.basename(seq_1_file))[0]) + ' + '
           + str(os.path.splitext(os.path.basename(seq_2_file))[0]) + '\n'
@@ -146,42 +190,31 @@ def compute_ffp_with_options(seq_1_fp, seq_2_fp, rerun_option, output_fp, distan
     return ffp_dist
 
 
-def compute_ffp_dist(sequences_dct_1, sequences_dct_2, dist_option, verbose):
+def compute_ffp_dist(sequences_dct, dist_option, verbose):
     """
-    :param sequences_dct_1: The dictionary of the input alignments,
-        where keys are the k-mer sequences and values are the k-mer counts normalized
-    :param sequences_dct_2: The dictionary of the input alignments,
-        where keys are the k-mer sequences and values are the k-mer counts normalized
+    :param sequences_dct: The dictionary of the input alignments,
+        where keys are the k-mer sequences and values are the k-mer counts in array form
     :param dist_option: Method used to calculate the distance between the FFPs
         options - js: Jenson-Shannon Divergence
                 - e: Euclidean Distance
     :param verbose: prints tons of stuff
     :return: the distance between the two FFPs
     """
-    if verbose:
-        print('Normalizing FFPs')
-    # convert dictionaries to lists of tuples
-    norm_seqs_1 = normalize_counts(sequences_dct_1)
-    norm_seqs_2 = normalize_counts(sequences_dct_2)
-    if verbose:
-        print('Aligning k-mers in FFP...')
-    # create panda series from dict
-    ffp_df = pd.DataFrame.from_records([norm_seqs_1, norm_seqs_2]).fillna(0)
-    if verbose:
-        print('FFP excerpt:')
-        print(ffp_df[ffp_df.columns[:5]])  # print first 5 columns
     if dist_option == 'euclidean':
         if verbose:
             print('Calculating Euclidean distance...')
-        d = euclidean(ffp_df.loc[0], ffp_df.loc[1])
+        d = euclidean([item[0] for item in list(sequences_dct.values())],
+                      [item[1] for item in list(sequences_dct.values())])
     elif dist_option == 'euclidean-squared':
         if verbose:
             print('Calculating squared Euclidean distance...')
-        d = euclidean_squared(ffp_df.loc[0], ffp_df.loc[1])
+        d = euclidean_squared([item[0] for item in list(sequences_dct.values())],
+                              [item[1] for item in list(sequences_dct.values())])
     else:  # default is JSD
         if verbose:
             print('Calculating Jenson-Shannon divergence...')
-        d = jsd(ffp_df.loc[0], ffp_df.loc[1])
+        d = jsd([item[0] for item in list(sequences_dct.values())],
+                [item[1] for item in list(sequences_dct.values())])
     return d
 
 
