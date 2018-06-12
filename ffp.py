@@ -1,3 +1,6 @@
+#  Chris Brown
+#  cjb008@ucsd.edu
+
 import sys
 from optparse import OptionParser
 import re

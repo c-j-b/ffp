@@ -17,15 +17,14 @@
       <file leaf-file-name="ffp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ffp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="292" lean-forward="true" selection-start-line="292" selection-end-line="292" />
+            <state relative-caret-position="369">
+              <caret line="304" column="27" lean-forward="true" selection-start-line="304" selection-start-column="27" selection-end-line="304" selection-end-column="27" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#1360#2917#0" />
                 <element signature="e#1160#1538#0" />
                 <element signature="e#1415#1652#0" />
                 <element signature="e#1144#1401#0" />
-                <element signature="e#2032#3418#0" />
                 <element signature="e#7804#8296#0" />
                 <element signature="e#8381#8826#0" />
               </folding>
@@ -90,8 +89,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="204" />
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="836" />
@@ -260,11 +258,18 @@
       <option name="project" value="LOCAL" />
       <updated>1528771060982</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added kmer length to file names.">
+      <created>1528780218019</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1528780218019</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="836" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="836" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.110416666" />
@@ -295,7 +300,8 @@
     <MESSAGE value="Formatting and more comments" />
     <MESSAGE value="Removed panda object, replaced with array as dictionary value. Moved normalization into initial read in of values. Code runs much faster (&gt;85%) now." />
     <MESSAGE value="Updated output file format for easier parsing later." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated output file format for easier parsing later." />
+    <MESSAGE value="Added kmer length to file names." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added kmer length to file names." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -306,7 +312,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="122" />
+      <option name="time" value="124" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -329,7 +335,6 @@
             <element signature="e#1160#1538#0" />
             <element signature="e#1415#1652#0" />
             <element signature="e#1144#1401#0" />
-            <element signature="e#2032#3418#0" />
             <element signature="e#7804#8296#0" />
             <element signature="e#8381#8826#0" />
           </folding>
@@ -391,15 +396,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ffp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="292" lean-forward="true" selection-start-line="292" selection-end-line="292" />
+        <state relative-caret-position="369">
+          <caret line="304" column="27" lean-forward="true" selection-start-line="304" selection-start-column="27" selection-end-line="304" selection-end-column="27" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1360#2917#0" />
             <element signature="e#1160#1538#0" />
             <element signature="e#1415#1652#0" />
             <element signature="e#1144#1401#0" />
-            <element signature="e#2032#3418#0" />
             <element signature="e#7804#8296#0" />
             <element signature="e#8381#8826#0" />
           </folding>
