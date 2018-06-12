@@ -127,17 +127,19 @@ def compute_ffp_with_options(seq_1_fp, seq_2_fp, rerun_option, output_fp, distan
 
     # Automatically skip directories with previous counts unless rerun is enabled
     if check_for_mer_counts(seq_1_base) is False or rerun_option is True:
-        #  count the k-mers
+        #  Count the k-mers
         if verbose:
             print('Jellyfish> Counting k-mers of ' + str(seq_1_file) + ' and ' + str(seq_2_file)
                   + ' with k-mer length ' + str(options.mer_length) + '...')
-        # count k-mers with jellyfish, then dump counts..twice...this takes awhile
+        # Count k-mers with jellyfish, then dump counts..twice...this takes awhile
         subprocess.run('jellyfish count -m ' + str(options.mer_length) + ' -s 100M -t 10 -C --bf-size 1G '
-                       + str(seq_1_file), cwd=str(seq_1_base), shell=True, check=True)
+                       + str(seq_1_file) + ' -o mer_counts_' + str(options.mer_length) + '.jf',
+                       cwd=str(seq_1_base), shell=True, check=True)
         if verbose:
             print('Jellyfish> Done counting ' + str(seq_1_file) + '. Starting dump...')
-        subprocess.run('jellyfish dump mer_counts.jf > mer_counts_dump.fa ', cwd=str(seq_1_base), shell=True,
-                       check=True)
+        subprocess.run('jellyfish dump mer_counts_' + str(options.mer_length) +
+                       '.jf > mer_counts_dump_' + str(options.mer_length) + '.fa', cwd=str(seq_1_base),
+                       shell=True, check=True)
         if verbose:
             print('Jellyfish> Dump complete.')
     else:
@@ -146,11 +148,13 @@ def compute_ffp_with_options(seq_1_fp, seq_2_fp, rerun_option, output_fp, distan
         if verbose:
             print('Jellyfish> Counting k-mers of ' + str(seq_2_file) + '...')
         subprocess.run('jellyfish count -m ' + str(options.mer_length) + ' -s 100M -t 10 -C --bf-size 1G '
-                       + str(seq_2_file), cwd=str(seq_2_base), shell=True, check=True)
+                       + str(seq_2_file) + ' -o mer_counts_' + str(options.mer_length) + '.jf',
+                       cwd=str(seq_2_base), shell=True, check=True)
         if verbose:
             print('Jellyfish> Done counting ' + str(seq_2_file) + '. Starting dump...')
-        subprocess.run('jellyfish dump mer_counts.jf > mer_counts_dump.fa ', cwd=str(seq_2_base), shell=True,
-                       check=True)
+        subprocess.run('jellyfish dump mer_counts_' + str(options.mer_length) +
+                       '.jf > mer_counts_dump_' + str(options.mer_length) + '.fa',
+                       cwd=str(seq_2_base), shell=True, check=True)
         if verbose:
             print('Jellyfish> Dump complete.')
     else:
@@ -158,10 +162,10 @@ def compute_ffp_with_options(seq_1_fp, seq_2_fp, rerun_option, output_fp, distan
     # read dumps into dict
     if verbose:
         print('Reading jellyfish FASTAs into dictionaries...')
-    seq_dct = read_fasta(str(seq_1_base + '/mer_counts_dump.fa'), 2, verbose)
+    seq_dct = read_fasta(str(seq_1_base + '/mer_counts_dump_' + str(options.mer_length) + '.fa'), 2, verbose)
     if verbose:
         print('Done reading into dictionary 1.')
-    seq_dct = add_fasta(seq_dct, str(seq_2_base + '/mer_counts_dump.fa'), 2, 1, verbose)
+    seq_dct = add_fasta(seq_dct, str(seq_2_base + '/mer_counts_dump_' + str(options.mer_length) + '.fa'), 2, 1, verbose)
     if verbose:
         print('Done reading into dictionary 2.')
     # compute distance matrix
@@ -174,10 +178,6 @@ def compute_ffp_with_options(seq_1_fp, seq_2_fp, rerun_option, output_fp, distan
     else:
         # use jenson-shannon
         _distance_option = "jenson-shannon"
-    if options.output_fp is not None:
-        # Write to file
-        with open(output_fp, 'a+') as f:
-            f.write('Distance method: ' + str(_distance_option) + '\n')
     # compute FFP_distance
     ffp_dist = compute_ffp_dist(seq_dct, _distance_option, verbose)
     # print distance
@@ -227,23 +227,14 @@ def check_for_mer_counts(dir_path):
     :param dir_path: folder to look in for mer_counts.jf file
     :return: True if file is found
     """
-    flag = False
+    flag_1 = False
+    flag_2 = False
     for file in os.listdir(dir_path):
-        if file == 'mer_counts.jf':
-            flag = True
-    flag = flag and check_for_mer_counts_dump(dir_path)
-    return flag
-
-
-def check_for_mer_counts_dump(dir_path):
-    """
-    :param dir_path: folder to look in for mer_counts_dump.fa file
-    :return: True if file is found
-    """
-    flag = False
-    for file in os.listdir(dir_path):
-        if file == 'mer_counts_dump.fa':
-            flag = True
+        if file == 'mer_counts_' + str(options.mer_length) + '.jf':
+            flag_1 = True
+        if file == 'mer_counts_dump_' + str(options.mer_length) + '.fa':
+            flag_2 = True
+    flag = flag_1 and flag_2
     return flag
 
 
@@ -291,26 +282,38 @@ if "__main__" == __name__:
                       help="path to the FASTA file path", metavar="FILE")
     parser.add_option("-l", "--length", dest="mer_length", default=10,
                       help="kmer length to use in jellyfish mer counting")
-    parser.add_option("-o", "--output", dest="output_fp",
+    parser.add_option("-o", "--output", dest="output_fp", default=None,
                       help="option, path to the output file", metavar="FILE")
     parser.add_option("-d", "--distance-method", dest="distOption", default='js',
                       help="select distance method: Jenson-Shannon (js), Euclidean(e), Euclidean Squared (e2)")
     parser.add_option("-r", "--rerun", dest="rerun", default=True,
-                      help="Recounts all k-mers.  When false, previously calculated counts are used when available")
+                      help="Recounts all k-mers.")
     parser.add_option("-v", "--verbose", dest="verbose", default=False,
                       help="prints lots of stuff")
 
     (options, args) = parser.parse_args()
     start_time = time.time()
+
+    if options.rerun in ['true', '1', 't', 'y', 'yes', 'True', 'Yes']:
+        rerun_bool = True
+    else:
+        rerun_bool = False
+    if options.verbose in ['true', '1', 't', 'y', 'yes', 'True', 'Yes']:
+        verbose_bool = True
+    else:
+        verbose_bool = False
+    if options.output_fp is not None:
+        # Write to file
+        with open(options.output_fp, 'a+') as f:
+            f.write('Distance method: ' + str(options.distOption) + '\n')
     if options.folder_fp is None:
         # just use the two sequence paths
         assert options.seq_fp_1 and options.seq_fp_2 is not None, 'Need sequence paths'
-        dist = compute_ffp_with_options(options.seq_fp_1, options.seq_fp_2, options.rerun, options.output_fp,
-                                        options.distOption, options.verbose)
+        dist = compute_ffp_with_options(options.seq_fp_1, options.seq_fp_2, rerun_bool, options.output_fp,
+                                        options.distOption, verbose_bool)
     else:
         assert options.folder_fp is not None, 'Need sequence folder path'
         folders = sorted([f for f in os.listdir(options.folder_fp) if not f.startswith('.')])
-
         total_combinations = misc.comb(len(folders), 2)
         n = 1
         # print('Estimating phylogeny from: ')
@@ -327,8 +330,8 @@ if "__main__" == __name__:
             if file_1 == '' or file_2 == '':
                 print('\tSkipping combo: ' + str(species_1) + '  -  ' + str(species_2))
                 continue
-            dist = compute_ffp_with_options(file_1, file_2, options.rerun, options.output_fp,
-                                            options.distOption, options.verbose)
+            dist = compute_ffp_with_options(file_1, file_2, rerun_bool, options.output_fp,
+                                            options.distOption, verbose_bool)
             try:
                 result_dict[species_1][species_2] = dist
             except KeyError:
@@ -357,3 +360,7 @@ if "__main__" == __name__:
                 f.write(tree.as_string('newick'))
                 f.write(tree.as_ascii_plot())
     print("--- %s minutes ---" % ((time.time() - start_time)/60))
+    if options.output_fp is not None:
+        # Write to file
+        with open(options.output_fp, 'a+') as f:
+            f.write('Running time: ' + str((time.time() - start_time)/60) + '\n')
