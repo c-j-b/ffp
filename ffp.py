@@ -351,7 +351,7 @@ if "__main__" == __name__:
                 except KeyError:
                     mirror_result_dict[k2] = {k1: v2}
         result_dict = merge(result_dict, mirror_result_dict)
-        # print(result_dict)
+        print(result_dict)
         tree_start_time = time.time()
         print('Reconstructing tree...')
         tree = tree_recon.create_tree(result_dict, folders, 4, 0.3)
@@ -366,4 +366,4 @@ if "__main__" == __name__:
     if options.output_fp is not None:
         # Write to file
         with open(options.output_fp, 'a+') as f:
-            f.write('Running time: ' + str((time.time() - start_time)/60) + '\n')
+            f.write('\nRunning time: ' + str((time.time() - start_time)/60) + 'minutes.\n')
