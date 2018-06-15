@@ -283,7 +283,7 @@ if "__main__" == __name__:
                       help="path to the FASTA file path", metavar="FILE")
     parser.add_option("-b", "--sequence2", dest="seq_fp_2",
                       help="path to the FASTA file path", metavar="FILE")
-    parser.add_option("-l", "--length", dest="mer_length", default=10,
+    parser.add_option("-l", "--length", dest="mer_length", default=20,
                       help="kmer length to use in jellyfish mer counting")
     parser.add_option("-o", "--output", dest="output_fp", default=None,
                       help="option, path to the output file", metavar="FILE")
@@ -366,4 +366,4 @@ if "__main__" == __name__:
     if options.output_fp is not None:
         # Write to file
         with open(options.output_fp, 'a+') as f:
-            f.write('\nRunning time: ' + str((time.time() - start_time)/60) + 'minutes.\n')
+            f.write('\nRunning time: ' + str((time.time() - start_time)/60) + ' minutes.\n')

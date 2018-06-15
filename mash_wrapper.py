@@ -42,20 +42,25 @@ if "__main__" == __name__:
         with open(options.output_fp, 'a+') as f:
             f.write('Distance method: mash\n')
         folders = sorted([f for f in os.listdir(options.folder_fp) if not f.startswith('.')])
-        total_combinations = misc.comb(len(folders), 2)
+        total_combinations = int(misc.comb(len(folders), 2))
         n = 1
         # iterate through folder of species building distance dict between all
         for species_1, species_2 in combinations(folders, 2):
             loop_start_time = time.time()
             print('(' + str(n) + '/' + str(total_combinations) + ') '
-                  + 'Starting ' + str(species_1) + '  -  ' + str(species_2) + ' distance estimation...')
+                  + 'Starting ' + str(species_1) + '  -   ' + str(species_2) + ' distance estimation...')
             file_1 = check_for_fasta(species_1, options.folder_fp)  # check and see if we have a fasta file
             file_2 = check_for_fasta(species_2, options.folder_fp)
             if file_1 == '' or file_2 == '':
                 print('\tSkipping combo: ' + str(species_1) + '  -  ' + str(species_2))
                 continue
-            subprocess.run('mash dist -k ' + str(options.len) + str(file_1) + ' ' + str(file_2) + '>> mash_out.txt',
-                           cwd=str(options.folder_fp), shell=True, check=True)
+            dist_stderr = subprocess.check_output(["mash", "dist", file_1, file_2], stderr=subprocess.STDOUT,
+                                                  universal_newlines=True).split()
+            print('\t' + dist_stderr[13])
+            if options.output_fp is not None:
+                # Write to file
+                with open(options.output_fp, 'a+') as f:
+                    f.write(str(species_1) + ' + ' + str(species_2) + '\n' + '\t' + str(dist_stderr[13]) + '\n')
             # need to wait for previous command to return
             print("\t--- %s seconds ---" % (time.time() - loop_start_time))
             n += 1
