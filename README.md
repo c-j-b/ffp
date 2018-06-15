@@ -1,7 +1,7 @@
 # ffp
 Feature Frequency Profile
 
-This project contains the code needed to run feature frequency profile (FFP) comparisons of many species. This is useful for analyzing entire phylogenies. This is done through the calculation of pairwise distances between the FFPs of various species. This FFP tool uses Jellyfish k-mer counts to build the FFP of each species.
+This project contains the code needed to run feature frequency profile (FFP) comparisons of many species. This is useful for analyzing entire phylogenies. This is done through the calculation of pairwise distances between the FFPs of all species combinations. This FFP tool uses Jellyfish k-mer counts to build the FFP of each species.
 
 Commmand Options:
 -f, --folder
